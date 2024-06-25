@@ -1,6 +1,6 @@
 package com.connector.github.mapper;
 
-import com.connector.github.api.dto.RepositoryData;
+import com.connector.github.dto.RepositoryData;
 import com.connector.github.client.dto.GitHubBranch;
 import com.connector.github.client.dto.GitHubRepository;
 import java.util.List;

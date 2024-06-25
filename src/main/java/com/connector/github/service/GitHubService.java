@@ -1,6 +1,6 @@
 package com.connector.github.service;
 
-import com.connector.github.api.dto.RepositoryData;
+import com.connector.github.dto.RepositoryData;
 import com.connector.github.client.GitHubWebClient;
 import com.connector.github.client.dto.GitHubRepository;
 import com.connector.github.mapper.RepositoryMapper;

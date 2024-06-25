@@ -1,6 +1,6 @@
 package com.connector.github.api;
 
-import com.connector.github.api.dto.RepositoryData;
+import com.connector.github.dto.RepositoryData;
 import com.connector.github.service.GitHubService;
 import java.time.Duration;
 import java.util.stream.IntStream;

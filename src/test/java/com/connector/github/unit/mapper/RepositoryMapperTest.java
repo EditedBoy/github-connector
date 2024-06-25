@@ -2,7 +2,7 @@ package com.connector.github.unit.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.connector.github.api.dto.RepositoryData;
+import com.connector.github.dto.RepositoryData;
 import com.connector.github.mapper.BranchMapperImpl;
 import com.connector.github.mapper.CommitMapperImpl;
 import com.connector.github.mapper.RepositoryMapper;

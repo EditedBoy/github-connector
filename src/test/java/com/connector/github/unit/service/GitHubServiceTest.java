@@ -2,7 +2,7 @@ package com.connector.github.unit.service;
 
 import static org.mockito.Mockito.when;
 
-import com.connector.github.api.dto.RepositoryData;
+import com.connector.github.dto.RepositoryData;
 import com.connector.github.client.GitHubWebClient;
 import com.connector.github.mapper.BranchMapperImpl;
 import com.connector.github.mapper.CommitMapperImpl;
