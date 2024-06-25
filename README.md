@@ -7,6 +7,7 @@ This project is a Spring Boot application that uses WebFlux to fetch repository 
 - [Technologies Used](#technologies-used)
 - [Setup and Installation](#setup-and-installation)
 - [Running the Application](#running-the-application)
+- [Swgger API](#swagger)
 - [Testing](#testing)
 - [License](#license)
 
@@ -67,7 +68,26 @@ docker build -t github-connector .
 docker run -p 8080:8080 github-connector
 ```
 
-### Testing
+## Swagger
+Swagger UI is available to visualize and interact with the API's resources.
+
+After running the application, access Swagger UI at:
+```bash
+http://localhost:8080/swagger-ui.html
+```
+or
+```bash
+http://localhost:8080/webjars/swagger-ui/index.html
+```
+
+API docs JSON payload can be fetched from:
+```bash
+http://localhost:8080/v3/api-docs
+```
+
+## Testing
+
+### Unit Tests
 Unit tests are written using JUnit 5 and Mockito. You can run the tests with:
 ```bash
 ./gradlew test

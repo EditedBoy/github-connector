@@ -9,10 +9,3 @@ integration:
 logging:
   level:
     io.netty: ERROR
-
-  springdoc:
-    api-docs:
-      path: /v3/api-docs
-    swagger-ui:
-      path: /swagger-ui.html
-      url: /static/swagger.yaml

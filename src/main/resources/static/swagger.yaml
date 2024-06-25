@@ -1,10 +1,10 @@
 openapi: 3.0.1
 info:
-  title: OpenAPI definition
-  version: v0
+  title: Github connector service
+  version: v1
 servers:
-  - url: http://localhost:8081
-    description: Generated server url
+  - url: http://localhost:8080
+    description: Local server url
 paths:
   /api/v1/users/{username}/repositories:
     get:
