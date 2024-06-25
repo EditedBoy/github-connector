@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: github-connector-service
+
+springdoc:
+  api-docs:
+    enabled: true
+
+integration:
+  github:
+    url: https://api.github.com
+
+logging:
+  level:
+    io.netty: ERROR
