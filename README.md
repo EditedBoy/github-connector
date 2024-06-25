@@ -43,8 +43,8 @@ This application provides endpoints to fetch repository information and their re
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/Editedboy/*.git
-cd *
+git clone https://github.com/EditedBoy/github-connector.git
+cd github-connector
 ```
 
 ### Build the Project
