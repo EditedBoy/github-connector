@@ -1,0 +1,10 @@
+version: '3.1'
+
+services:
+
+  github-connector:
+    container_name: github-connector
+    build:
+      context: .
+    ports:
+      - "8080:8080"

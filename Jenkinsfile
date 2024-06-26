@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE = "github-repo-fetcher"
+        DOCKER_IMAGE = "github-connector"
     }
     stages {
         stage('Checkout') {
