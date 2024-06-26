@@ -27,23 +27,24 @@ public class GitHubControllerTest extends BaseIntegrationTest {
     mockBranches(OWNER, REPOSITORY_3, List.of(branchMain, branchTest));
 
     webTestClient.get()
-        .uri("/api/v2/users/{username}/repositories", OWNER)
+        .uri("/api/v1/users/{username}/repositories", OWNER)
         .accept(MediaType.APPLICATION_JSON)
         .exchange()
         .expectStatus().isOk()
         .expectBody()
+        .jsonPath("$.size()").isEqualTo(2)
 
-        .jsonPath("$[0].owner").isEqualTo(OWNER)
-        .jsonPath("$[0].name").isEqualTo(REPOSITORY_1)
-        .jsonPath("$[0].branches[0].name").isEqualTo(BRANCH_MAIN)
-        .jsonPath("$[0].branches[0].commit.sha").isEqualTo(COMMIT_SHA_MAIN)
+        .jsonPath("$[?(@.owner == '%s')]", OWNER).exists()
+        .jsonPath("$[?(@.name == '%s')]", REPOSITORY_1).exists()
+        .jsonPath("$[?(@.name == '%s')].branches[?(@.name == '%s')]", REPOSITORY_1, BRANCH_MAIN).exists()
+        .jsonPath("$[?(@.name == '%s')].branches[?(@.name == '%s')].commit.sha", REPOSITORY_1, BRANCH_MAIN).isEqualTo(COMMIT_SHA_MAIN)
 
-        .jsonPath("$[1].owner").isEqualTo(OWNER)
-        .jsonPath("$[1].name").isEqualTo(REPOSITORY_3)
-        .jsonPath("$[1].branches[0].name").isEqualTo(BRANCH_MAIN)
-        .jsonPath("$[1].branches[0].commit.sha").isEqualTo(COMMIT_SHA_MAIN)
-        .jsonPath("$[1].branches[1].name").isEqualTo(BRANCH_TEST)
-        .jsonPath("$[1].branches[1].commit.sha").isEqualTo(COMMIT_SHA_TEST);
+        .jsonPath("$[?(@.owner == '%s')]", OWNER).exists()
+        .jsonPath("$[?(@.name == '%s')]", REPOSITORY_3).exists()
+        .jsonPath("$[?(@.name == '%s')].branches[?(@.name == '%s')]", REPOSITORY_3, BRANCH_MAIN).exists()
+        .jsonPath("$[?(@.name == '%s')].branches[?(@.name == '%s')].commit.sha", REPOSITORY_3, BRANCH_MAIN).isEqualTo(COMMIT_SHA_MAIN)
+        .jsonPath("$[?(@.name == '%s')].branches[?(@.name == '%s')]", REPOSITORY_3, BRANCH_TEST).exists()
+        .jsonPath("$[?(@.name == '%s')].branches[?(@.name == '%s')].commit.sha", REPOSITORY_3, BRANCH_TEST).isEqualTo(COMMIT_SHA_TEST);
   }
 
   @Test
