@@ -48,7 +48,7 @@ public abstract class BaseIntegrationTest extends BaseTest {
   }
 
   protected void mockRepositoriesInternalServer(String username) {
-    mockFailedResponse("/github/users/%s/repos".formatted(username), "Internal server error", 500);
+    mockFailedResponse("/github/users/%s/repos".formatted(username), "Internal server message detail", 500);
   }
 
   protected void mockBranches(String username, String repository, List<GitHubBranch> branches) {
@@ -60,7 +60,7 @@ public abstract class BaseIntegrationTest extends BaseTest {
     }
   }
 
-  protected void mockRepositoriesNotFound(String username, String repository) {
+  protected void mockBranchNotFound(String username, String repository) {
     mockFailedResponse("/github/repos/%s/%s/branches".formatted(username, repository), "Branches not found", 404);
   }
 
@@ -80,6 +80,4 @@ public abstract class BaseIntegrationTest extends BaseTest {
       ex.printStackTrace();
     }
   }
-
-
 }

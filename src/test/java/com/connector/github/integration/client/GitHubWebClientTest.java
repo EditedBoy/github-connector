@@ -67,7 +67,6 @@ public class GitHubWebClientTest extends BaseIntegrationTest {
     verify(getRequestedFor(urlPathEqualTo("/github/users/%s/repos".formatted(OWNER))));
   }
 
-
   @Test
   public void getBranches() {
     var branchMain = buildGitHubBranch(BRANCH_MAIN, COMMIT_SHA_MAIN);
@@ -86,8 +85,8 @@ public class GitHubWebClientTest extends BaseIntegrationTest {
   }
 
   @Test
-  public void testGetBranches_NotFound() {
-    mockRepositoriesNotFound(OWNER, REPOSITORY_1);
+  public void getBranchesWhenNotFound() {
+    mockBranchNotFound(OWNER, REPOSITORY_1);
 
     Flux<GitHubBranch> branches = gitHubWebClient.getBranches(OWNER, REPOSITORY_1);
 

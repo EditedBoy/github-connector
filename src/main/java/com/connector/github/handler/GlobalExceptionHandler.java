@@ -56,9 +56,8 @@ public class GlobalExceptionHandler {
     return Mono.just(ResponseEntity
         .status(ex.getStatusCode())
         .contentType(MediaType.APPLICATION_JSON)
-        .body(new ExceptionDetails(ex.getStatusCode().value(), ex.getMessage())));
+        .body(new ExceptionDetails(ex.getStatusCode().value(), ex.getResponseBodyAsString())));
   }
-
 
   @ExceptionHandler(ResponseStatusException.class)
   public Mono<ResponseEntity<ExceptionDetails>> handleBadRequestException(ResponseStatusException ex) {

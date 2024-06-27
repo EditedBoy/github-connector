@@ -10,6 +10,7 @@ import com.connector.github.mapper.RepositoryMapper;
 import com.connector.github.mapper.RepositoryMapperImpl;
 import com.connector.github.service.GitHubService;
 import com.connector.github.unit.BaseUnitTest;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -40,12 +41,24 @@ public class GitHubServiceTest extends BaseUnitTest {
     when(gitHubWebClient.getRepositories(OWNER)).thenReturn(Flux.just(repository1, repository2));
     when(gitHubWebClient.getBranches(OWNER, REPOSITORY_1)).thenReturn(Flux.just(branchMain));
     when(gitHubWebClient.getBranches(OWNER, REPOSITORY_2)).thenReturn(Flux.just(branchMain, branchTest));
+    when(repositoryMapper.toRepositoryData(repository1, List.of(branchMain))).thenCallRealMethod();
+    when(repositoryMapper.toRepositoryData(repository2, List.of(branchMain, branchTest))).thenCallRealMethod();
 
     Flux<RepositoryData> repositories = gitHubService.getRepositories(OWNER);
 
     StepVerifier.create(repositories)
-        .expectNextMatches(repo -> repo.getName().equals(REPOSITORY_1) && repo.getBranches().size() == 1)
-        .expectNextMatches(repo -> repo.getName().equals(REPOSITORY_2) && repo.getBranches().size() == 2)
+        .expectNextMatches(repo ->
+            REPOSITORY_1.equals(repo.getName())
+                && repo.getBranches().size() == 1
+                && BRANCH_MAIN.equals(repo.getBranches().get(0).getName())
+                && COMMIT_SHA_MAIN.equals(repo.getBranches().get(0).getCommit().getSha()))
+        .expectNextMatches(repo ->
+            REPOSITORY_2.equals(repo.getName())
+                && repo.getBranches().size() == 2
+                && BRANCH_MAIN.equals(repo.getBranches().get(0).getName())
+                && COMMIT_SHA_MAIN.equals(repo.getBranches().get(0).getCommit().getSha())
+                && BRANCH_TEST.equals(repo.getBranches().get(1).getName())
+                && COMMIT_SHA_TEST.equals(repo.getBranches().get(1).getCommit().getSha()))
         .verifyComplete();
   }
 

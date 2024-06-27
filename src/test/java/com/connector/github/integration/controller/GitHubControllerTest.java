@@ -1,5 +1,7 @@
 package com.connector.github.integration.controller;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.connector.github.integration.BaseIntegrationTest;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -68,5 +70,17 @@ public class GitHubControllerTest extends BaseIntegrationTest {
         .expectBody()
         .jsonPath("$.status").isEqualTo(404)
         .jsonPath("$.message").isEqualTo("Not found repositories for username: " + OWNER);
+  }
+
+  @Test
+  void getRepositoriesWhenInternalServerOccurred() {
+    mockRepositoriesInternalServer(OWNER);
+    webTestClient.get()
+        .uri("/api/v1/users/{username}/repositories", OWNER)
+        .accept(MediaType.APPLICATION_JSON)
+        .exchange()
+        .expectBody()
+        .jsonPath("$.status").isEqualTo(500)
+        .jsonPath("$.message").value(message -> assertTrue(message.toString().contains("Internal server message detail")));
   }
 }
